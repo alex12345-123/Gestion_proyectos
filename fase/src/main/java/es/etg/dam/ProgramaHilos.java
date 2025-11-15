@@ -1,25 +1,29 @@
 package es.etg.dam;
 
 public class ProgramaHilos {
-    public static void main(String[] args) throws InterruptedException{
 
-        Tarea Analisis = new Tarea("Analisis",3000);
-        Tarea Diseño = new Tarea("Diseño",2000);
-        Tarea Codificacion = new Tarea("Codificacion",1000);
-        Tarea Pruebas = new Tarea("Pruebas",2000);
-    
-        System.out.println("Ejecuto Analisis y diseño");
-        Analisis.start();
-        Diseño.start(); 
+    public static void main(String[] args) throws InterruptedException {
 
-        Analisis.join();
-        Diseño.join();
+        Tarea analisis = new Tarea("Análisis", 3000);
+        Tarea diseño = new Tarea("Diseño", 2000);
+        Tarea codificacion = new Tarea("Codificación", 1000);
+        Tarea pruebas = new Tarea("Pruebas", 2000);
 
-        System.out.println("Codificacion inicia");
-        Codificacion.start();
+        System.out.println("Inicia diseño y analisis");
+        analisis.start();
+        diseño.start();
 
-        System.out.println("Inicia pruebas");
-        Pruebas.start();
-        
+        diseño.join();
+        System.out.println("Inicia las pruebas");
+        pruebas.start();
+
+        analisis.join();
+        System.out.println("Inicia Codificación");
+        codificacion.start();
+
+        pruebas.join();
+        codificacion.join();
+
+        System.out.println("Las tareas han finalizado");
     }
 }
